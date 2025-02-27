@@ -1,32 +1,21 @@
-plugins {
-    id("ndksamples.android.library")
-}
-
-android {
-    namespace = "com.android.ndk.samples.base"
-
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-        }
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+       google()
+       jcenter()
     }
-
-    buildFeatures {
-        prefabPublishing = true
-    }
-
-    prefab {
-        create("base") {
-            headers = "src/main/cpp/include"
-        }
+    dependencies {
+        classpath("com.android.tools.build:gradle:3.6.4")
     }
 }
 
-dependencies {
-
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
 }
+
+tasks.register<Delete>("clean").configure {
+    delete(rootProject.buildDir)
+ }

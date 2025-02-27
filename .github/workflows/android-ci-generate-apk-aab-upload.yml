@@ -8,12 +8,9 @@ env:
   playstore_name: Frogobox ID
 
 on:
-
   push:
     branches:
-      - 'release/**'
-
-  # Allows you to run this workflow manually from the Actions tab
+      - main
   workflow_dispatch:
 
 jobs:

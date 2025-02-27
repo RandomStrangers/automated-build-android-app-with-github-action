@@ -47,6 +47,7 @@ jobs:
       # Create APK Debug
       - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
         id: build_debug
+        if: ${{steps.build_gradle.outcome == 'success'}}
         run: ./gradlew assembleDebug
 
       # Create APK Release
@@ -77,7 +78,7 @@ jobs:
         uses: ./.github/actions/notify_success
         if: ${{steps.build_debug.outcome == 'success'}}
         with:
-          NOTIFY_MESSAGE: 'Successfully compiled app.'
+          NOTIFY_MESSAGE: 'Successfully compiled ${{ env.main_project_module }} (${{ env.repository_name }}).'
           WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'
       # Noted For Output [main_project_module]/build/outputs/apk/release/
       #- name: Upload APK Release - ${{ env.repository_name }}

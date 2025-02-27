@@ -41,8 +41,15 @@ jobs:
 
       # Run Build Project
       - name: Build gradle project
+        id: build_gradle
         run: ./gradlew build
-
+        
+      - name: Notify of gradle failure
+        uses: ./.github/actions/notify_failure
+        if: ${{steps.build_gradle.outcome == 'failure'}}
+        with:
+          NOTIFY_MESSAGE: 'Failed to compile gradle! <@999409543001931788>'
+          WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'
       # Create APK Debug
       - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
         id: build_debug

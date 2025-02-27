@@ -1,12 +1,12 @@
 apply(plugin = "com.android.application")
 
 android {
-    compileSdkVersion(28)
+    compileSdk = Version(28)
 
     defaultConfig {
-        applicationId = "com.deleter.android.client"
-        minSdkVersion(13)
-        targetSdkVersion(26)
+        applicationId = = "com.deleter.android.client"
+        minSdk = Version(13)
+        targetSdk = Version(26)
         externalNativeBuild {
             cmake {
                 arguments "-DANDROID_STL=c++_static"
@@ -14,7 +14,7 @@ android {
         }
     }
     buildTypes {
-        named("release") {
+        release {
             isMinifyEnabled = false
             setProguardFiles(listOf(getDefaultProguardFile("proguard-android.txt"),))
                     "proguard-rules.pro"

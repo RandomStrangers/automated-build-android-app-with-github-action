@@ -41,13 +41,11 @@ jobs:
 
       # Run Build Project
       - name: Build gradle project
-        id: build_gradle
         run: ./gradlew build
 
       # Create APK Debug
       - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
         id: build_debug
-        if: ${{steps.build_gradle.outcome == 'success'}}
         run: ./gradlew assembleDebug
 
       # Create APK Release

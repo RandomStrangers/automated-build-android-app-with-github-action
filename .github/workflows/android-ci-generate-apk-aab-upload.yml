@@ -41,11 +41,12 @@ jobs:
 
       # Run Build Project
       - name: Build gradle project
+        id: build_gradle
         run: ./gradlew build
 
       # Create APK Debug
       - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
-        id: compile
+        id: build_debug
         run: ./gradlew assembleDebug
 
       # Create APK Release
@@ -64,16 +65,17 @@ jobs:
         with:
           name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+          
       - name: Notify of failure
         uses: ./.github/actions/notify_failure
-        if: ${{steps.compile.outcome == 'failure'}}
+        if: ${{steps.build_debug.outcome == 'failure'}}
         with:
           NOTIFY_MESSAGE: 'Failed to compile app! <@999409543001931788>'
           WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'
           
-      - name: Notify of failure
+      - name: Notify of success
         uses: ./.github/actions/notify_success
-        if: ${{steps.compile.outcome == 'success'}}
+        if: ${{steps.build_debug.outcome == 'success'}}
         with:
           NOTIFY_MESSAGE: 'Successfully compiled app.'
           WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'

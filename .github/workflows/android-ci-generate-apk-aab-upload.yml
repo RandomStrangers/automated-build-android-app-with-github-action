@@ -45,6 +45,7 @@ jobs:
 
       # Create APK Debug
       - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
+        id: compile
         run: ./gradlew assembleDebug
 
       # Create APK Release
@@ -63,7 +64,19 @@ jobs:
         with:
           name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/
-
+      - name: Notify of failure
+        uses: ./.github/actions/notify_failure
+        if: ${{steps.compile.outcome == 'failure'}}
+        with:
+          NOTIFY_MESSAGE: 'Failed to compile app! <@999409543001931788>'
+          WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'
+          
+      - name: Notify of failure
+        uses: ./.github/actions/notify_success
+        if: ${{steps.compile.outcome == 'success'}}
+        with:
+          NOTIFY_MESSAGE: 'Successfully compiled app.'
+          WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'
       # Noted For Output [main_project_module]/build/outputs/apk/release/
       #- name: Upload APK Release - ${{ env.repository_name }}
         #uses: actions/upload-artifact@v4

@@ -6,7 +6,6 @@
 
 ## Automated Build Android Using Github Action
 [![Android CI](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci.yml/badge.svg)](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci.yml)
-[![Download Generated APK AAB](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci-generate-apk-aab-download.yml/badge.svg)](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci-generate-apk-aab-download.yml)
 [![Upload Generated APK AAB](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci-generate-apk-aab-upload.yml/badge.svg)](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci-generate-apk-aab-upload.yml)
 [![Scan with Detekt](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/detekt-analysis.yml/badge.svg)](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/detekt-analysis.yml)
 [![Generated APK AAB (Clean)](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci-generate-apk-aab-clean.yml/badge.svg)](https://github.com/RandomStrangers/automated-build-android-app-with-github-action/actions/workflows/android-ci-generate-apk-aab-clean.yml)

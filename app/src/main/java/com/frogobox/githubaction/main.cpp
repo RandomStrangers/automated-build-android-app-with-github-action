@@ -103,7 +103,7 @@ int DeleterMain() {
     android_set_abort_message(buf);
     // Also log directly, since the default Android Studio logcat filter hides
     // the backtrace which would otherwise show the abort message.
-    LOGE("%s", buf);
+    //LOGE("%s", buf);
   }
   std::abort();
 }
@@ -296,7 +296,7 @@ static int engine_init_display(Engine* engine) {
   }
 
   if (config == nullptr) {
-    LOGW("Unable to initialize EGLConfig");
+    //LOGW("Unable to initialize EGLConfig");
     return -1;
   }
 
@@ -314,7 +314,7 @@ static int engine_init_display(Engine* engine) {
   context = eglCreateContext(display, config, nullptr, nullptr);
 
   if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
-    LOGW("Unable to eglMakeCurrent");
+    //LOGW("Unable to eglMakeCurrent");
     return -1;
   }
 
@@ -332,7 +332,7 @@ static int engine_init_display(Engine* engine) {
   auto opengl_info = {GL_VENDOR, GL_RENDERER, GL_VERSION, GL_EXTENSIONS};
   for (auto name : opengl_info) {
     auto info = glGetString(name);
-    LOGI("OpenGL Info: %s", info);
+    //LOGI("OpenGL Info: %s", info);
   }
   // Initialize GL state.
   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
@@ -437,8 +437,8 @@ int OnSensorEvent(int /* fd */, int /* events */, void* data) {
   CHECK_NOT_NULL(engine->accelerometerSensor);
   ASensorEvent event;
   while (ASensorEventQueue_getEvents(engine->sensorEventQueue, &event, 1) > 0) {
-    LOGI("accelerometer: x=%f y=%f z=%f", event.acceleration.x,
-         event.acceleration.y, event.acceleration.z);
+    //LOGI("accelerometer: x=%f y=%f z=%f", event.acceleration.x,
+         //event.acceleration.y, event.acceleration.z);
   }
 
   // From the docs:

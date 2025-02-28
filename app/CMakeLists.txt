@@ -1,5 +1,4 @@
-#
-# Copyright (C) The Android Open Source Project
+# # Copyright (C) The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 cmake_minimum_required(VERSION 3.4.1)
+project(app)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 # build native_app_glue as a static lib

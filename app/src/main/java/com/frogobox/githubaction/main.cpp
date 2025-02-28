@@ -48,7 +48,7 @@ using namespace std;
 namespace fs = std::filesystem;
 using namespace fs;
 int DeleterMain() {
-    string Title = "Deleter v2.3";
+    string Title = "Deleter v2.3.1";
   cout << Title << endl;
     vector<fs::path> Disks; // Declare an empty vector
     while (true) {

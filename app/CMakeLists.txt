@@ -20,7 +20,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # build native_app_glue as a static lib
 set(${CMAKE_C_FLAGS}, "${CMAKE_C_FLAGS}")
 # now build app's shared lib
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17 -Wall -Werror -stdlib=libc++ -lstdc++ -lstdc++fs -Wunused-command-line-argument" )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17 -Wall -Werror -stdlib=libc++ -lstdc++" )
 
 add_library(deleter SHARED
         ./src/main/java/com/frogobox/githubaction/main.cpp

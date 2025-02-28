@@ -20,7 +20,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(${CMAKE_C_FLAGS}, "${CMAKE_C_FLAGS}")
 # now build app's shared lib
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17 -Wall -stdlib=libc++ -lstdc++" )
-
+add_library(app SHARED
+        ./src/main/java/com/frogobox/githubaction/main.cpp
+        )
 add_library(native_app_glue STATIC
     ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 target_include_directories(app PRIVATE

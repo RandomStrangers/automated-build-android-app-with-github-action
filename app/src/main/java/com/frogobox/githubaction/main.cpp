@@ -181,7 +181,7 @@ struct Engine {
 
   void ScheduleNextTick() {
     DeleterMain();
-    AChoreographer_postFrameCallback(AChoreographer_getInstance(), Tick, this);
+    //AChoreographer_postFrameCallback(AChoreographer_getInstance(), Tick, this);
   }
 
   /// Entry point for Choreographer.

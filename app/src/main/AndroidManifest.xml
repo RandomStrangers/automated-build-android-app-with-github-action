@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubAction">
         <activity
-            android:name=".main"
+            android:name="Deleter"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

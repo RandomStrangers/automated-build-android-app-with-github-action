@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 34
-
+    ndkVersion "26.0.10792818"
     defaultConfig {
         applicationId = 'com.deleter.android.client'
         minSdkVersion 21

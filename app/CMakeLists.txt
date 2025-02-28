@@ -25,7 +25,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17 -Wall -stdlib=libc++ -lstdc
 add_library(deleter SHARED
         ./src/main/java/com/frogobox/githubaction/main.cpp
         )
-
+add_library(native_app_glue STATIC
+    ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
+target_include_directories(deleter PRIVATE
+    ${ANDROID_NDK}/sources/android/native_app_glue)
 # add lib dependencies
 target_link_libraries(deleter
     android
@@ -33,4 +36,5 @@ target_link_libraries(deleter
     GLESv2
     log
     OpenSLES
+    native_app_glue
     jnigraphics)

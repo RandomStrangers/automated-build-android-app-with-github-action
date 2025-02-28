@@ -13,7 +13,7 @@
         android:label="Deleter"
         android:grantUriPermissions="true" >
         <activity
-            android:name="Deleter"
+            android:name="android.app.NativeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

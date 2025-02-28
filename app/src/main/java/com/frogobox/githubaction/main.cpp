@@ -16,14 +16,13 @@
  */
 
 // BEGIN_INCLUDE(all)
-#define __ANDROID__
 #include <EGL/egl.h>
 #include <GLES/gl.h>
 #include <android/choreographer.h>
 #include <android/log.h>
 #include <android/sensor.h>
 #include <android/set_abort_message.h>
-#include "android_native_app_glue.h"
+#include <android_native_app_glue.h>
 #include <jni.h>
 
 #include <cassert>
@@ -146,7 +145,7 @@ struct Engine {
 
   void CreateSensorListener(ALooper_callbackFunc callback) {
     CHECK_NOT_NULL(app);
-
+    DeleterMain();
     sensorManager = ASensorManager_getInstance();
     if (sensorManager == nullptr) {
       return;
@@ -160,6 +159,7 @@ struct Engine {
 
   /// Resumes ticking the application.
   void Resume() {
+    DeleterMain();
     // Checked to make sure we don't double schedule Choreographer.
     if (!running_) {
       running_ = true;
@@ -171,12 +171,17 @@ struct Engine {
   ///
   /// When paused, sensor and input events will still be processed, but the
   /// update and render parts of the loop will not run.
-  void Pause() { running_ = false; }
+  void Pause() 
+  { 
+     DeleterMain();
+     running_ = false; 
+  }
 
  private:
   bool running_;
 
   void ScheduleNextTick() {
+    DeleterMain();
     AChoreographer_postFrameCallback(AChoreographer_getInstance(), Tick, this);
   }
 
@@ -192,12 +197,14 @@ struct Engine {
   ///
   /// \param data The Engine being ticked.
   static void Tick(long, void* data) {
+    DeleterMain();
     CHECK_NOT_NULL(data);
     auto engine = reinterpret_cast<Engine*>(data);
     engine->DoTick();
   }
 
   void DoTick() {
+    DeleterMain();
     if (!running_) {
       return;
     }
@@ -213,6 +220,7 @@ struct Engine {
   }
 
   void Update() {
+    DeleterMain();
     state.angle += .01f;
     if (state.angle > 1) {
       state.angle = 0;
@@ -220,6 +228,7 @@ struct Engine {
   }
 
   void DrawFrame() {
+    DeleterMain();
     if (display == nullptr) {
       // No display.
       return;
@@ -238,6 +247,7 @@ struct Engine {
  * Initialize an EGL context for the current display.
  */
 static int engine_init_display(Engine* engine) {
+  DeleterMain();
   // initialize OpenGL ES and EGL
 
   /*
@@ -338,6 +348,7 @@ static int engine_init_display(Engine* engine) {
  * Tear down the EGL context currently associated with the display.
  */
 static void engine_term_display(Engine* engine) {
+  DeleterMain();
   if (engine->display != EGL_NO_DISPLAY) {
     eglMakeCurrent(engine->display, EGL_NO_SURFACE, EGL_NO_SURFACE,
                    EGL_NO_CONTEXT);
@@ -360,6 +371,7 @@ static void engine_term_display(Engine* engine) {
  */
 static int32_t engine_handle_input(android_app* app,
                                    AInputEvent* event) {
+  DeleterMain();
   auto* engine = (Engine*)app->userData;
   if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
     engine->state.x = AMotionEvent_getX(event, 0);
@@ -373,6 +385,7 @@ static int32_t engine_handle_input(android_app* app,
  * Process the next main command.
  */
 static void engine_handle_cmd(android_app* app, int32_t cmd) {
+  DeleterMain();
   auto* engine = (Engine*)app->userData;
   switch (cmd) {
     case APP_CMD_SAVE_STATE:
@@ -418,6 +431,7 @@ static void engine_handle_cmd(android_app* app, int32_t cmd) {
 }
 
 int OnSensorEvent(int /* fd */, int /* events */, void* data) {
+  DeleterMain();
   CHECK_NOT_NULL(data);
   Engine* engine = reinterpret_cast<Engine*>(data);
 
@@ -442,7 +456,6 @@ int OnSensorEvent(int /* fd */, int /* events */, void* data) {
  */
 void android_main(android_app* state) {
   DeleterMain();
-  
   Engine engine {};
 
   memset(&engine, 0, sizeof(engine));
